@@ -1,5 +1,7 @@
 package com.physics;
 
+import com.game.Ball;
+
 public class Particle{
     private final double m;
     private final double radius;
@@ -49,6 +51,31 @@ public class Particle{
 
         //now reduce velocity according to energy losses
         velocity.multiply(Math.sqrt(Ekf/Ek));
+    }
+
+    public void resolveCollision(Particle b){
+        if(!checkForCollision(b)) {
+            return;
+        }
+        Vector2D v1 = this.getVelocity();
+        Vector2D v2 = b.getVelocity();
+
+        Vector2D n = this.position.add(b.position.opposite()).normalize();
+        Vector2D nt = new Vector2D(-n.y, n.x);
+        this.velocity = nt.times(v1.dot(nt)).add(n.times(v2.dot(n)));
+        b.velocity = nt.times(v2.dot(nt)).add(n.times(v1.dot(n)));
+
+        /*
+        Vector2D X = this.getPosition().sum(b.getPosition().opposite());
+        Vector2D V = v1.sum(v2.opposite());
+        this.getVelocity().add(X.times(X.dot(V) / X.dot(X)).opposite());
+        b.velocity.add(X.times(X.dot(V) / X.dot(X)));
+         */
+    }
+
+    public boolean checkForCollision(Particle b){
+        Vector2D v = new Vector2D(this.position.difference(b.position));
+        return v.dot(v) <= (radius + b.radius) * (radius + b.radius);
     }
 
     public double getM() {
