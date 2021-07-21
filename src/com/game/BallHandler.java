@@ -1,6 +1,19 @@
 package com.game;
 
-import com.physics.MovementHandler;
+import java.util.ArrayList;
 
-public class BallHandler extends MovementHandler {
+public class BallHandler {
+    private ArrayList<Ball> balls;
+
+    public void tick(){
+        for(Ball ball : balls) {
+            ball.tick();
+            for(Ball b : balls)
+                if(ball.getNum() < b.getNum())
+                    ball.resolveCollision(b);
+
+        }
+
+    }
+
 }
