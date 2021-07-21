@@ -2,11 +2,8 @@ package com.game;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
-import java.text.AttributedCharacterIterator;
 
 public class Game extends Canvas implements Runnable{
     private static double ticks = 300;

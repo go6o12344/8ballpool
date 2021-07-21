@@ -16,6 +16,16 @@ public class Particle{
         this.velocity = velocity;
     }
 
+    @Override
+    public String toString() {
+        return "Particle{" +
+                "m=" + m +
+                ", radius=" + radius +
+                ", position=" + position +
+                ", velocity=" + velocity +
+                '}';
+    }
+
     public void tick(double g, double fc, double fld, double dc){
         /*
         This method simulates particle movement.
@@ -51,6 +61,8 @@ public class Particle{
 
         //now reduce velocity according to energy losses
         velocity.multiply(Math.sqrt(Ekf/Ek));
+
+        System.out.println(this);
     }
 
     public void resolveCollision(Particle b){
@@ -60,7 +72,7 @@ public class Particle{
         Vector2D v1 = this.getVelocity();
         Vector2D v2 = b.getVelocity();
 
-        Vector2D n = this.position.add(b.position.opposite()).normalize();
+        Vector2D n = this.position.difference(b.position).normalize();
         Vector2D nt = new Vector2D(-n.y, n.x);
         this.velocity = nt.times(v1.dot(nt)).add(n.times(v2.dot(n)));
         b.velocity = nt.times(v2.dot(nt)).add(n.times(v1.dot(n)));
@@ -71,6 +83,7 @@ public class Particle{
         this.getVelocity().add(X.times(X.dot(V) / X.dot(X)).opposite());
         b.velocity.add(X.times(X.dot(V) / X.dot(X)));
          */
+        System.out.println(this);
     }
 
     public boolean checkForCollision(Particle b){
