@@ -68,5 +68,8 @@ public class Vector2D {
         return this.x * v.x + this.y * v.y;
     }
 
+    public boolean isNull(){
+        return this.x == 0 && this.y == 0;
+    }
 
 }
