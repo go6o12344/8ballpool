@@ -10,12 +10,14 @@ public class Game extends Canvas implements Runnable{
     private BallHandler handler;
     private boolean isRunning = true;
     private final Image board = ImageIO.read(new File("resources/board.png"));
+    public static final double upper = 41, lower = 439, left = 41, right = 829;
 
     public Game() throws IOException {
         new Window("8BallPool", board.getWidth(null), board.getHeight(null), this);
         this.setIgnoreRepaint(true);
         this.createBufferStrategy(2);
         handler = new BallHandler();
+        this.addMouseListener(new MouseInput(handler.getWhiteBall()));
         new Thread(this).run();
     }
 

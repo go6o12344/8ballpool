@@ -16,6 +16,7 @@ public class BallHandler {
     }
 
     public BallHandler() throws IOException {
+        balls.add(new WhiteBall(new Vector2D(720, 240), new Vector2D(0 ,0)));
         balls.add(new Ball(new Vector2D(210, 270), new Vector2D(0, 0),1));
         balls.add(new Ball(new Vector2D(150, 210), new Vector2D(0,0), 2));
         balls.add(new Ball(new Vector2D(180, 255), new Vector2D(0, 0),3));
@@ -48,8 +49,11 @@ public class BallHandler {
     public void render(Graphics g){
         for(Ball ball : balls) {
             ball.render(g);
-            System.out.println(ball);
         }
+    }
+
+    public WhiteBall getWhiteBall(){
+        return (WhiteBall) this.balls.get(0);
     }
 
 }

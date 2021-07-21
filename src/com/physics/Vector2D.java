@@ -1,5 +1,7 @@
 package com.physics;
 
+import java.awt.*;
+
 public class Vector2D {
     public double x, y;
 
@@ -11,6 +13,11 @@ public class Vector2D {
     public Vector2D(Vector2D v){
         this.x = v.x;
         this.y = v.y;
+    }
+
+    public Vector2D(Point p){
+        this.x = p.x;
+        this.y = p.y;
     }
 
     public boolean equals(Vector2D v){

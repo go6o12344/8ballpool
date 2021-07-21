@@ -46,7 +46,7 @@ public class Particle{
         //final kinetic energy
         double Ekf = Ek;
         //displacement
-        double l = velocity.length();
+        double l = velocity.length() / 150;
 
         /*
             Account for energy loss due to dry friction
@@ -57,12 +57,12 @@ public class Particle{
 
         //Account for fluid (air) resistance
 
-        Ekf -= l * dc * fld * l * l * radius * radius * Math.PI;
+        Ekf -= l * dc * fld * l * l * radius * radius * Math.PI / 10000;
 
         //now reduce velocity according to energy losses
+        Ekf = Ekf < 0 ? 0 : Ekf;
         velocity.multiply(Math.sqrt(Ekf/Ek));
 
-        System.out.println(this);
     }
 
     public void resolveCollision(Particle b){
@@ -71,19 +71,18 @@ public class Particle{
         }
         Vector2D v1 = this.getVelocity();
         Vector2D v2 = b.getVelocity();
-
+    /*
         Vector2D n = this.position.difference(b.position).normalize();
         Vector2D nt = new Vector2D(-n.y, n.x);
         this.velocity = nt.times(v1.dot(nt)).add(n.times(v2.dot(n)));
         b.velocity = nt.times(v2.dot(nt)).add(n.times(v1.dot(n)));
+    */
 
-        /*
         Vector2D X = this.getPosition().sum(b.getPosition().opposite());
         Vector2D V = v1.sum(v2.opposite());
-        this.getVelocity().add(X.times(X.dot(V) / X.dot(X)).opposite());
+        this.velocity.add(X.times(X.dot(V) / X.dot(X)).opposite());
         b.velocity.add(X.times(X.dot(V) / X.dot(X)));
-         */
-        System.out.println(this);
+
     }
 
     public boolean checkForCollision(Particle b){
