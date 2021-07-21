@@ -3,8 +3,8 @@ package com.physics;
 public class Particle{
     private final double m;
     private final double radius;
-    private Vector2D position;
-    Vector2D velocity;
+    public Vector2D position;
+    public Vector2D velocity;
 
 
     public Particle(double m, double radius, Vector2D position, Vector2D velocity) {
@@ -23,6 +23,10 @@ public class Particle{
             fld -> density of the enclosing fluid (either vacuum or air in our case)
             dc -> drag coefficient (assume particle shape is a perfect sphere)
         */
+
+        if(velocity.isNull())
+            return;
+
         position.add(velocity);
 
         //initial kinetic energy

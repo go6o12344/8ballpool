@@ -17,6 +17,14 @@ public class Vector2D {
         return this.x == v.x && this.y == v.y;
     }
 
+    @Override
+    public String toString() {
+        return "Vector2D{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
+
     public Vector2D add(Vector2D v){
         this.x += v.x;
         this.y += v.y;
@@ -52,6 +60,8 @@ public class Vector2D {
     }
 
     public Vector2D normalize(){
+        if(this.isNull())
+            return this;
         double l = this.length();
         if(l != 0.0) {
             this.x /= l;
@@ -72,4 +82,11 @@ public class Vector2D {
         return this.x == 0 && this.y == 0;
     }
 
+    public Vector2D opposite() {
+        return new Vector2D(this).multiply(-1);
+    }
+
+    public double dot(Vector2D v) {
+        return this.dotProduct(v);
+    }
 }
