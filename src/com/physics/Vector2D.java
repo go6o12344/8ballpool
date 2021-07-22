@@ -1,6 +1,7 @@
 package com.physics;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 public class Vector2D {
     public double x, y;
@@ -95,5 +96,9 @@ public class Vector2D {
 
     public double dot(Vector2D v) {
         return this.dotProduct(v);
+    }
+
+    public boolean in(Rectangle2D.Double r){
+        return this.x > r.x && this.y > r.y && this.x < r.x + r.width && this.y < r.y + r.height;
     }
 }
