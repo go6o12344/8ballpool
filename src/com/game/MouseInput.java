@@ -7,18 +7,20 @@ import java.awt.event.MouseListener;
 
 public class MouseInput implements MouseListener {
     WhiteBall b;
+    Game game;
 
-    public MouseInput(WhiteBall whiteBall) {
+    public MouseInput(WhiteBall whiteBall, Game g) {
         b = whiteBall;
+        game = g;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(!Game.shotAllowed)
+        if(!game.shotAllowed)
             return;
         System.out.println(e.getPoint());
-        b.setVelocity(new Vector2D(e.getPoint()).subtract(b.position).normalize().multiply(4));
-        Game.shotAllowed = false;
+        b.setVelocity(new Vector2D(e.getPoint()).subtract(b.position).normalize().multiply(2));
+        game.shotAllowed = false;
         System.out.println(b);
     }
 
