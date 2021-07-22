@@ -55,10 +55,10 @@ public class Ball extends Particle {
 
     private void resolveCollision(Rectangle2D.Double r){
         Vector2D np = this.position.sum(this.velocity);
-        if((np.x < Game.left || np.x > Game.right))
+        if((np.x < r.x || np.x > r.x + r.width))
             this.velocity.x *= -1;
 
-        if((np.y < Game.upper || np.y > Game.lower))
+        if((np.y < r.y || np.y > r.y + r.height))
             this.velocity.y *= -1;
     }
 

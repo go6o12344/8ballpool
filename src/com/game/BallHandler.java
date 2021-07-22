@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class BallHandler {
     private ArrayList<Ball> balls = new ArrayList<>();
     private ArrayList<Socket> socks;
+    private ArrayList<Ball> forRemoval = new ArrayList<>();
     public ArrayList<Ball> getBalls() {
         return balls;
     }
@@ -49,6 +50,15 @@ public class BallHandler {
             }
             if(kekek)
                 ball.tick(null);
+            for(Socket sock : socks){
+                if(sock.socketed(ball)){
+                    forRemoval.add(ball);
+                    break;
+                }
+            }
+        }
+        for(Ball ball : forRemoval){
+            balls.remove(ball);
         }
         for(Ball ball : balls){
             for(Ball b : balls)

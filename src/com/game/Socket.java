@@ -8,13 +8,15 @@ import java.util.ArrayList;
 public class Socket {
     public ArrayList<Rectangle2D.Double> hitbox = new ArrayList<>();
     public Rectangle2D.Double inHitbox;
+    public Rectangle2D.Double notActuallyInHitbox;
 
     public static ArrayList<Socket> initSocks(){
         Socket upperLeft = new Socket();
-        upperLeft.hitbox.add(new Rectangle2D.Double(17, 22, 50, 50));
-        upperLeft.hitbox.add(new Rectangle2D.Double(48, 48, 40, 45));
+        upperLeft.hitbox.add(new Rectangle2D.Double(17, 22, 35, 35));
+        upperLeft.hitbox.add(new Rectangle2D.Double(48, 48, 30, 35));
         upperLeft.hitbox.add(new Rectangle2D.Double(45, 51, 35, 29));
-        upperLeft.inHitbox = new Rectangle2D.Double(17, 22, 29, 29);
+        upperLeft.inHitbox = new Rectangle2D.Double(17, 22, 24, 24);
+        upperLeft.notActuallyInHitbox = new Rectangle2D.Double(26, 31, 15, 15);
         ArrayList<Socket> s = new ArrayList<>();
         s.add(upperLeft);
         return s;
@@ -38,7 +40,7 @@ public class Socket {
     }
 
     public boolean socketed(Ball b){
-        return b.position.in(inHitbox);
+        return b.position.in(inHitbox) && !b.position.in(notActuallyInHitbox);
     }
 
 }
