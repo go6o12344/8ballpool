@@ -21,6 +21,11 @@ public class Vector2D {
         this.y = p.y;
     }
 
+    public Vector2D(Segment s){
+        this.x = s.end.x - s.start.x;
+        this.y = s.end.y - s.start.y;
+    }
+
     public boolean equals(Vector2D v){
         return this.x == v.x && this.y == v.y;
     }
@@ -101,4 +106,18 @@ public class Vector2D {
     public boolean in(Rectangle2D.Double r){
         return this.x > r.x && this.y > r.y && this.x < r.x + r.width && this.y < r.y + r.height;
     }
+
+    public Vector2D rotate(double angle){
+        double x1 = this.x, y1 = this.y;
+        double s = Math.sin(angle), c = Math.cos(angle);
+        this.x = x1 * c + y1 * s;
+        this.y = x1 * s + y1 * c;
+        return this;
+    }
+
+    public void reflect(Vector2D v){
+        v.rotate(-2 * Math.acos(this.unit().dot(v.unit())));
+    }
+
+
 }
