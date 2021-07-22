@@ -18,16 +18,26 @@ public class Renderer {
     public void render(){
         BufferStrategy bs = this.game.getBufferStrategy();
         Graphics g = bs.getDrawGraphics();
+        cleanFrame(g);
         g.drawImage(board, 0, 0, null);
         g.drawImage(playerBar, (board.getWidth(null) - playerBar.getWidth(null)) / 2, board.getHeight(null), null);
-        g.drawImage(todd, (board.getWidth(null) - playerBar.getWidth(null)) / 2 + 150, board.getHeight(null) + 25, null);
         this.game.handler.render(g);
+        renderTodd(g);
         g.dispose();
         bs.show();
 
     }
 
-    public void renderTodd(){
-        return;
+    public void renderTodd(Graphics g){
+        if(game.p1Turn)
+            g.drawImage(todd, (board.getWidth(null) - playerBar.getWidth(null)) / 2 + 150, board.getHeight(null) + 25, null);
+        else
+            g.drawImage(todd, (board.getWidth(null) + playerBar.getWidth(null)) / 2 + 20, board.getHeight(null) + 25, null);
+
+    }
+
+    public void cleanFrame(Graphics g){
+        g.setColor(Color.WHITE);
+        g.fillRect(0, board.getHeight(null), board.getWidth(null), board.getHeight(null) + playerBar.getHeight(null));
     }
 }
