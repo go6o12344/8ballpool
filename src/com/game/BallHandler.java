@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 public class BallHandler {
     private ArrayList<Ball> balls = new ArrayList<>();
-
+    private ArrayList<Socket> socks;
     public ArrayList<Ball> getBalls() {
         return balls;
     }
 
-    public BallHandler() throws IOException {
+    public BallHandler(ArrayList<Socket> socks) throws IOException {
         balls.add(new WhiteBall(new Vector2D(720, 240), new Vector2D(0 ,0)));
         double r = balls.get(0).getRadius() + 0.05;
         double s = r * Math.sqrt(3) + 0.05;
@@ -34,11 +34,21 @@ public class BallHandler {
         balls.add(new Ball(new Vector2D(150, 240), new Vector2D(0, 0),13));
         balls.add(new Ball(new Vector2D(150 + s, 240 + 3 * r), new Vector2D(0, 0),14));
         balls.add(new Ball(new Vector2D(150 + 2 * s, 240 - 2 * r), new Vector2D(0, 0),15));
+        this.socks = socks;
     }
 
     public void tick(){
         for(Ball ball : balls) {
-            ball.tick();
+            boolean kekek = true;
+            for(Socket sock : socks){
+                if(sock.in(ball)){
+                   kekek = false;
+                    ball.tick(sock);
+                   break;
+                }
+            }
+            if(kekek)
+                ball.tick(null);
         }
         for(Ball ball : balls){
             for(Ball b : balls)

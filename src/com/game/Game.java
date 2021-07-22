@@ -4,23 +4,26 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Game extends Canvas implements Runnable{
-    public static final double ticks = 900;
+    public static final double ticks = 120;
     BallHandler handler;
     private boolean isRunning = true;
     private Renderer r;
     private int clock = 0;
     boolean p1Turn = true;
     boolean shotAllowed = true;
-    public static final double upper = 58, lower = 421, left = 58, right = 812;
+    public static final double upper = 58, lower = 426, left = 58, right = 817;
+    private ArrayList<Socket> socks;
 
     public Game() throws IOException {
         r = new Renderer(this);
         new Window("8BallPool", r.board.getWidth(null), r.board.getHeight(null) + r.playerBar.getHeight(null) + 20, this);
         this.setIgnoreRepaint(true);
         this.createBufferStrategy(2);
-        handler = new BallHandler();
+        socks = Socket.initSocks();
+        handler = new BallHandler(socks);
         this.addMouseListener(new MouseInput(handler.getWhiteBall(), this));
         new Thread(this).run();
     }

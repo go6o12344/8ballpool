@@ -5,6 +5,7 @@ import com.physics.Vector2D;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.io.File;
@@ -38,21 +39,31 @@ public class Ball extends Particle {
         return numero;
     }
 
-    public void tick(){
+    public void tick(Socket sock){
         Vector2D np = this.position.sum(this.velocity);
-        if(np.x < Game.left || np.x > Game.right)
+        if(sock == null && (np.x < Game.left || np.x > Game.right))
             this.velocity.x *= -1;
 
-        if(np.y < Game.upper || np.y > Game.lower)
+        if(sock == null &&(np.y < Game.upper || np.y > Game.lower))
             this.velocity.y *= -1;
-
+        if(sock != null){
+            for(Rectangle2D.Double r : sock.hitbox);
+                //resolveCollision(r);
+        }
         this.tick(9.81, 0.02, 1.168, 0.5, Game.ticks);
     }
 
+    private void resolveCollision(Rectangle2D.Double r){
+        Vector2D np = this.position.sum(this.velocity);
+        if((np.x < Game.left || np.x > Game.right))
+            this.velocity.x *= -1;
+
+        if((np.y < Game.upper || np.y > Game.lower))
+            this.velocity.y *= -1;
+    }
+
     public void resolveCollision(Ball b){
-        if(this.checkForCollision(b)) {
-            super.resolveCollision(b);
-        }
+       super.resolveCollision(b);
     }
 
 
