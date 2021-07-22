@@ -15,7 +15,7 @@ public class MouseInput implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println(e.getPoint());
-        b.setVelocity(new Vector2D(e.getPoint()).subtract(b.position).normalize().multiply(3));
+        b.setVelocity(new Vector2D(e.getPoint()).subtract(b.position).normalize().multiply(4));
         System.out.println(b);
     }
 
