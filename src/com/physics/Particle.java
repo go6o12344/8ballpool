@@ -26,7 +26,7 @@ public class Particle{
                 '}';
     }
 
-    public void tick(double g, double fc, double fld, double dc){
+    public void tick(double g, double fc, double fld, double dc, double ticks){
         /*
         This method simulates particle movement.
         Arguments:
@@ -35,29 +35,29 @@ public class Particle{
             fld -> density of the enclosing fluid (either vacuum or air in our case)
             dc -> drag coefficient (assume particle shape is a perfect sphere)
         */
-
+        ticks = 900;
         if(velocity.isNull())
             return;
 
         position.add(velocity);
 
         //initial kinetic energy
-        double Ek = m * velocity.dotProduct(velocity) / 2;
+        double Ek = m * velocity.dotProduct(velocity) / 2 / 10000 * ticks * ticks;
         //final kinetic energy
         double Ekf = Ek;
         //displacement
-        double l = velocity.length() / 150;
+        double l = velocity.length() / 100 * ticks;
 
         /*
             Account for energy loss due to dry friction
             Just subtract the work done by the friction force
          */
 
-        Ekf -= m * g * fc * l;
+        Ekf -= m * g * fc * l / ticks;
 
         //Account for fluid (air) resistance
 
-        Ekf -= l * dc * fld * l * l * radius * radius * Math.PI / 10000;
+        Ekf -= l / ticks * dc * fld * l * l * radius * radius * Math.PI / 10000;
 
         //now reduce velocity according to energy losses
         Ekf = Ekf < 0 ? 0 : Ekf;
@@ -71,18 +71,25 @@ public class Particle{
         }
         Vector2D v1 = this.getVelocity();
         Vector2D v2 = b.getVelocity();
-    /*
-        Vector2D n = this.position.difference(b.position).normalize();
+
+        Vector2D n = this.position.difference(b.position);
+        double d = n.length();
+        Vector2D mtd = n.times(((getRadius() + b.getRadius())-d)/d);
+        n.normalize();
+        position.add(mtd.times(0.5));
+        b.position.subtract(mtd.times(0.5));
+        if(n.dot(v1.difference(v2)) > 0)
+            return;
         Vector2D nt = new Vector2D(-n.y, n.x);
         this.velocity = nt.times(v1.dot(nt)).add(n.times(v2.dot(n)));
         b.velocity = nt.times(v2.dot(nt)).add(n.times(v1.dot(n)));
-    */
 
+    /*
         Vector2D X = this.getPosition().sum(b.getPosition().opposite());
         Vector2D V = v1.sum(v2.opposite());
         this.velocity.add(X.times(X.dot(V) / X.dot(X)).opposite());
         b.velocity.add(X.times(X.dot(V) / X.dot(X)));
-
+     */
     }
 
     public boolean checkForCollision(Particle b){
