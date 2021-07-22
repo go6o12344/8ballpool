@@ -7,8 +7,6 @@ import java.io.IOException;
 
 public class Game extends Canvas implements Runnable{
     public static final double ticks = 90;
-    public static boolean firstStrike = true;
-    public static boolean secondStrike = true;
     BallHandler handler;
     private boolean isRunning = true;
     private Renderer r;
