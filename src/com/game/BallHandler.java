@@ -17,21 +17,23 @@ public class BallHandler {
 
     public BallHandler() throws IOException {
         balls.add(new WhiteBall(new Vector2D(720, 240), new Vector2D(0 ,0)));
-        balls.add(new Ball(new Vector2D(210, 270), new Vector2D(0, 0),1));
-        balls.add(new Ball(new Vector2D(150, 210), new Vector2D(0,0), 2));
-        balls.add(new Ball(new Vector2D(180, 255), new Vector2D(0, 0),3));
-        balls.add(new Ball(new Vector2D(150, 270), new Vector2D(0, 0),4));
-        balls.add(new Ball(new Vector2D(150, 300), new Vector2D(0, 0),5));
-        balls.add(new Ball(new Vector2D(180, 195), new Vector2D(0, 0),6));
-        balls.add(new Ball(new Vector2D(240, 225), new Vector2D(0, 0),7));
-        balls.add(new Ball(new Vector2D(210, 240), new Vector2D(0, 0),8));
-        balls.add(new Ball(new Vector2D(270, 240), new Vector2D(0, 0),9));
-        balls.add(new Ball(new Vector2D(180, 225), new Vector2D(0, 0),10));
-        balls.add(new Ball(new Vector2D(150, 180), new Vector2D(0,0), 11));
-        balls.add(new Ball(new Vector2D(240, 255), new Vector2D(0, 0),12));
+        double r = balls.get(0).getRadius() + 0.05;
+        double s = r * Math.sqrt(3) + 0.05;
+        balls.add(new Ball(new Vector2D(150 + 2 * s, 240 + 2 * r), new Vector2D(0, 0),1));
+        balls.add(new Ball(new Vector2D(150, 240 - 2 * r), new Vector2D(0,0), 2));
+        balls.add(new Ball(new Vector2D(150 + s, 240 + r), new Vector2D(0, 0),3));
+        balls.add(new Ball(new Vector2D(150, 240 + 2 * r), new Vector2D(0, 0),4));
+        balls.add(new Ball(new Vector2D(150, 240 + 4 * r), new Vector2D(0, 0),5));
+        balls.add(new Ball(new Vector2D(150 + s, 240 - 3 * r), new Vector2D(0, 0),6));
+        balls.add(new Ball(new Vector2D(150 + 3 * s, 240 - r), new Vector2D(0, 0),7));
+        balls.add(new Ball(new Vector2D(150 + 2 * s, 240), new Vector2D(0, 0),8));
+        balls.add(new Ball(new Vector2D(150 + 4 * s, 240), new Vector2D(0, 0),9));
+        balls.add(new Ball(new Vector2D(150 + s, 240 - r), new Vector2D(0, 0),10));
+        balls.add(new Ball(new Vector2D(150, 240 - 4 * r), new Vector2D(0,0), 11));
+        balls.add(new Ball(new Vector2D(150 + 3 * s, 240 + r), new Vector2D(0, 0),12));
         balls.add(new Ball(new Vector2D(150, 240), new Vector2D(0, 0),13));
-        balls.add(new Ball(new Vector2D(180, 285), new Vector2D(0, 0),14));
-        balls.add(new Ball(new Vector2D(210, 210), new Vector2D(0, 0),15));
+        balls.add(new Ball(new Vector2D(150 + s, 240 + 3 * r), new Vector2D(0, 0),14));
+        balls.add(new Ball(new Vector2D(150 + 2 * s, 240 - 2 * r), new Vector2D(0, 0),15));
     }
 
     public void tick(){
