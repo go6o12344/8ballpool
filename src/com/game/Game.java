@@ -6,14 +6,18 @@ import java.io.File;
 import java.io.IOException;
 
 public class Game extends Canvas implements Runnable{
-    private static double ticks = 300;
-    private BallHandler handler;
+    public static final double ticks = 90;
+    public static boolean firstStrike = true;
+    public static boolean secondStrike = true;
+    BallHandler handler;
     private boolean isRunning = true;
-    private final Image board = ImageIO.read(new File("resources/board.png"));
-    public static final double upper = 41, lower = 439, left = 41, right = 829;
+    private Renderer r;
+
+    public static final double upper = 58, lower = 421, left = 58, right = 812;
 
     public Game() throws IOException {
-        new Window("8BallPool", board.getWidth(null), board.getHeight(null), this);
+        r = new Renderer(this);
+        new Window("8BallPool", r.board.getWidth(null), r.board.getHeight(null) + r.playerBar.getHeight(null) + 20, this);
         this.setIgnoreRepaint(true);
         this.createBufferStrategy(2);
         handler = new BallHandler();
@@ -56,12 +60,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     private void render(){
-        BufferStrategy bs = this.getBufferStrategy();
-        Graphics g = bs.getDrawGraphics();
-        g.drawImage(board, 0, 0, null);
-        handler.render(g);
-        g.dispose();
-        bs.show();
+        r.render();
 
     }
 
