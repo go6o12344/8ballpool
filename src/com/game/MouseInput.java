@@ -14,8 +14,11 @@ public class MouseInput implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if(!Game.shotAllowed)
+            return;
         System.out.println(e.getPoint());
         b.setVelocity(new Vector2D(e.getPoint()).subtract(b.position).normalize().multiply(4));
+        Game.shotAllowed = false;
         System.out.println(b);
     }
 

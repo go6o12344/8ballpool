@@ -54,6 +54,13 @@ public class BallHandler {
         }
     }
 
+    public boolean checkForMovement(){
+        for(Ball ball : balls)
+            if(!ball.velocity.isNull())
+                return true;
+        return false;
+    }
+
     public WhiteBall getWhiteBall(){
         return (WhiteBall) this.balls.get(0);
     }

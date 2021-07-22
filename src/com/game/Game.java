@@ -6,11 +6,13 @@ import java.io.File;
 import java.io.IOException;
 
 public class Game extends Canvas implements Runnable{
-    public static final double ticks = 90;
+    public static final double ticks = 900;
     BallHandler handler;
     private boolean isRunning = true;
     private Renderer r;
-
+    private int clock = 0;
+    boolean p1turn = true;
+    static boolean shotAllowed = true;
     public static final double upper = 58, lower = 421, left = 58, right = 812;
 
     public Game() throws IOException {
@@ -34,6 +36,7 @@ public class Game extends Canvas implements Runnable{
         int frames = 0;
         //gameLoop
         while(isRunning) {
+
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
@@ -47,6 +50,11 @@ public class Game extends Canvas implements Runnable{
             if(System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
                 frames = 0;
+            }
+            clock = (clock + 1) % 100;
+            if(clock == 0 && !handler.checkForMovement() && !shotAllowed) {
+                p1turn = !p1turn;
+                shotAllowed = true;
             }
         }
 
