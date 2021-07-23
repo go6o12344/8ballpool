@@ -60,6 +60,9 @@ public class BallHandler {
         for(Ball ball : forRemoval){
             balls.remove(ball);
         }
+
+        forRemoval.removeIf((x) -> true);
+
         for(Ball ball : balls){
             for(Ball b : balls)
                 if(ball.getNum() < b.getNum())
