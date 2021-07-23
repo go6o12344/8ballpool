@@ -7,6 +7,7 @@ public class Particle{
     private final double radius;
     public Vector2D position;
     public Vector2D velocity;
+    public Circle hitbox;
 
 
     public Particle(double m, double radius, Vector2D position, Vector2D velocity) {
@@ -14,6 +15,7 @@ public class Particle{
         this.radius = radius;
         this.position = position;
         this.velocity = velocity;
+        this.hitbox = new Circle(radius, position);
     }
 
     @Override
@@ -35,7 +37,7 @@ public class Particle{
             fld -> density of the enclosing fluid (either vacuum or air in our case)
             dc -> drag coefficient (assume particle shape is a perfect sphere)
         */
-        ticks = 900;
+        //ticks = 9;
         if(velocity.isNull())
             return;
 
