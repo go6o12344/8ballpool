@@ -54,7 +54,7 @@ public class Game extends Canvas implements Runnable{
                 timer += 1000;
                 frames = 0;
             }
-            clock = (clock + 1) % 100;
+            clock = (clock + 1) % (int) (ticks / 10);
             if(clock == 0 && !handler.checkForMovement() && !shotAllowed) {
                 p1Turn = !p1Turn;
                 shotAllowed = true;
