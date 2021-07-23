@@ -29,13 +29,9 @@ public class Socket {
     public boolean in(Ball b){
         for(Rectangle2D.Double r : hitbox) {
             if(b.position.in(r)) {
-                if(b.getNum() == 0)
-                    System.out.println("In");
                 return true;
             }
         }
-        if(b.getNum() == 0)
-            System.out.println("Not in");
         return false;
     }
 
