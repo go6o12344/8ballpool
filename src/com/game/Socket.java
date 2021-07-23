@@ -1,5 +1,7 @@
 package com.game;
 
+import com.physics.Circle;
+import com.physics.Segment;
 import com.physics.Vector2D;
 
 import java.awt.geom.Rectangle2D;
@@ -7,18 +9,30 @@ import java.util.ArrayList;
 
 public class Socket {
     public ArrayList<Rectangle2D.Double> hitbox = new ArrayList<>();
-    public Rectangle2D.Double inHitbox;
-    public Rectangle2D.Double notActuallyInHitbox;
+    public Circle inHitbox;
 
     public static ArrayList<Socket> initSocks(){
+        Vector2D accountForPositionDisplacement = new Vector2D(12.5, 12.5);
         Socket upperLeft = new Socket();
-        upperLeft.hitbox.add(new Rectangle2D.Double(17, 22, 35, 35));
-        upperLeft.hitbox.add(new Rectangle2D.Double(48, 48, 30, 35));
-        upperLeft.hitbox.add(new Rectangle2D.Double(45, 51, 35, 29));
-        upperLeft.inHitbox = new Rectangle2D.Double(17, 22, 24, 24);
-        upperLeft.notActuallyInHitbox = new Rectangle2D.Double(26, 31, 15, 15);
+        upperLeft.inHitbox = new Circle(25, new Vector2D(42, 47).subtract(accountForPositionDisplacement));
+        Socket midUpper = new Socket();
+        midUpper.inHitbox = new Circle(22, new Vector2D(444, 36).subtract(accountForPositionDisplacement));
+        Socket upperRight = new Socket();
+        upperRight.inHitbox = new Circle(25, new Vector2D(851,46).subtract(accountForPositionDisplacement));
+        Socket lowerLeft = new Socket();
+        lowerLeft.inHitbox = new Circle(25, new Vector2D(42, 463).subtract(accountForPositionDisplacement));
+        Socket midLower = new Socket();
+        midLower.inHitbox = new Circle(22, new Vector2D(444, 472).subtract(accountForPositionDisplacement));
+        Socket lowerRight = new Socket();
+        lowerRight.inHitbox = new Circle(25, new Vector2D(851, 462).subtract(accountForPositionDisplacement));
+
         ArrayList<Socket> s = new ArrayList<>();
         s.add(upperLeft);
+        s.add(midUpper);
+        s.add(upperRight);
+        s.add(lowerLeft);
+        s.add(midLower);
+        s.add(lowerRight);
         return s;
     }
 
@@ -26,17 +40,8 @@ public class Socket {
 
     }
 
-    public boolean in(Ball b){
-        for(Rectangle2D.Double r : hitbox) {
-            if(b.position.in(r)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean socketed(Ball b){
-        return b.position.in(inHitbox) && !b.position.in(notActuallyInHitbox);
+        return b.hitbox.in(inHitbox);
     }
 
 }
