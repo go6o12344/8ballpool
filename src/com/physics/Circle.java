@@ -9,6 +9,14 @@ public class Circle {
         this.center = center;
     }
 
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "radius=" + radius +
+                ", center=" + center +
+                '}';
+    }
+
     public static boolean between(double a, double b1, double b2){
         if( a == b1 && b1 == b2) return false;
         return (b1 <= a && b2 >= a) || (b1 >= a && b2 <= a);
@@ -22,4 +30,10 @@ public class Circle {
         if(s.perpendicularLength(center) <= radius && (between(center.x, s.start.x, s.end.x) || between(center.y, s.start.y, s.end.y))) return true;
         return false;
     }
+
+    public boolean in(Circle c){
+        return new Vector2D(center).subtract(c.center).length() + radius <= c.radius;
+    }
+
+
 }
