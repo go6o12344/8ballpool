@@ -20,4 +20,8 @@ public class Segment {
         }
         return Math.abs(a * v.x - v.y + b) / Math.sqrt(a * a + 1);
     }
+
+    public Vector2D toVector2D(){
+        return end.difference(start);
+    }
 }
