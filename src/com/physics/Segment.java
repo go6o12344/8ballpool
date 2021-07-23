@@ -8,6 +8,14 @@ public class Segment {
         this.end = end;
     }
 
+    @Override
+    public String toString() {
+        return "Segment{" +
+                "start=" + start +
+                ", end=" + end +
+                '}';
+    }
+
     public double perpendicularLength(Vector2D v){
         double a, b;
         //find line eq.
@@ -16,7 +24,7 @@ public class Segment {
             b = start.y - a * start.x;
         }
         else{
-            return v.x - start.x;
+            return v.x - start.x * (v.x > start.x ? 1 : -1);
         }
         return Math.abs(a * v.x - v.y + b) / Math.sqrt(a * a + 1);
     }
