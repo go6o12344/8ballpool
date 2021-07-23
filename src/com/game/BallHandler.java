@@ -1,5 +1,6 @@
 package com.game;
 
+import com.physics.Segment;
 import com.physics.Vector2D;
 
 import javax.imageio.ImageIO;
@@ -15,8 +16,9 @@ public class BallHandler {
     public ArrayList<Ball> getBalls() {
         return balls;
     }
+    private ArrayList<Segment> sides;
 
-    public BallHandler(ArrayList<Socket> socks) throws IOException {
+    public BallHandler(ArrayList<Socket> socks, ArrayList<Segment> sides) throws IOException {
         balls.add(new WhiteBall(new Vector2D(720, 240), new Vector2D(0 ,0)));
         double r = balls.get(0).getRadius() + 0.05;
         double s = r * Math.sqrt(3) + 0.05;
@@ -36,20 +38,12 @@ public class BallHandler {
         balls.add(new Ball(new Vector2D(150 + s, 240 + 3 * r), new Vector2D(0, 0),14));
         balls.add(new Ball(new Vector2D(150 + 2 * s, 240 - 2 * r), new Vector2D(0, 0),15));
         this.socks = socks;
+        this.sides = sides;
     }
 
     public void tick(){
         for(Ball ball : balls) {
-            boolean kekek = true;
-            for(Socket sock : socks){
-                if(sock.in(ball)){
-                   kekek = false;
-                    ball.tick(sock);
-                   break;
-                }
-            }
-            if(kekek)
-                ball.tick(null);
+            ball.tick(sides);
             for(Socket sock : socks){
                 if(sock.socketed(ball)){
                     forRemoval.add(ball);

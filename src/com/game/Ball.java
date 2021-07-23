@@ -1,6 +1,7 @@
 package com.game;
 
 import com.physics.Particle;
+import com.physics.Segment;
 import com.physics.Vector2D;
 
 import javax.imageio.ImageIO;
@@ -39,27 +40,26 @@ public class Ball extends Particle {
         return numero;
     }
 
-    public void tick(Socket sock){
-        Vector2D np = this.position.sum(this.velocity);
-        if(sock == null && (np.x < Game.left || np.x > Game.right))
-            this.velocity.x *= -1;
-
-        if(sock == null &&(np.y < Game.upper || np.y > Game.lower))
-            this.velocity.y *= -1;
-        if(sock != null){
-            for(Rectangle2D.Double r : sock.hitbox);
-                //resolveCollision(r);
-        }
-        this.tick(9.81, 0.02, 1.168, 0.5, Game.ticks);
+    public void tick(ArrayList<Segment> sides){
+        resolveBoardCollision(sides);
+        tick(9.81, 0.02, 1.168, 0.5, Game.ticks);
     }
 
-    private void resolveCollision(Rectangle2D.Double r){
-        Vector2D np = this.position.sum(this.velocity);
-        if((np.x < r.x || np.x > r.x + r.width))
-            this.velocity.x *= -1;
+    public void resolveBoardCollision(ArrayList<Segment> sides){
+        for(Segment s : sides){
+            if(resolveCollision(s))
+                return;
+        }
 
-        if((np.y < r.y || np.y > r.y + r.height))
-            this.velocity.y *= -1;
+    };
+
+    public boolean resolveCollision(Segment s){
+        if(hitbox.checkForIntersection(s)){
+            s.toVector2D().reflect(velocity);
+            System.out.println(s + " " + hitbox);
+            return true;
+        }
+        return false;
     }
 
     public void resolveCollision(Ball b){
