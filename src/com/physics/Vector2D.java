@@ -110,9 +110,13 @@ public class Vector2D {
     public Vector2D rotate(double angle){
         double x1 = this.x, y1 = this.y;
         double s = Math.sin(angle), c = Math.cos(angle);
-        this.x = x1 * c + y1 * s;
+        this.x = x1 * c - y1 * s;
         this.y = x1 * s + y1 * c;
         return this;
+    }
+
+    public Vector2D rotated(double angle){
+        return new Vector2D(this).rotate(angle);
     }
 
     public void reflect(Vector2D v){
