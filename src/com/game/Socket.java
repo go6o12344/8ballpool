@@ -8,11 +8,10 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public class Socket {
-    public ArrayList<Rectangle2D.Double> hitbox = new ArrayList<>();
     public Circle inHitbox;
 
     public static ArrayList<Socket> initSocks(){
-        Vector2D accountForPositionDisplacement = new Vector2D(12.5, 12.5);
+        Vector2D accountForPositionDisplacement = new Vector2D(Game.ballRadius, Game.ballRadius);
         Socket upperLeft = new Socket();
         upperLeft.inHitbox = new Circle(25, new Vector2D(42, 47).subtract(accountForPositionDisplacement));
         Socket midUpper = new Socket();

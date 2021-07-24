@@ -7,21 +7,27 @@ import java.awt.event.MouseListener;
 
 public class MouseInput implements MouseListener {
     WhiteBall b;
-    Game game;
+    private boolean moveCueAllowed;
+    private boolean semiAllowCueMovement = true;
+    private boolean shotAllowed = true;
 
-    public MouseInput(WhiteBall whiteBall, Game g) {
+    public MouseInput(WhiteBall whiteBall) {
         b = whiteBall;
-        game = g;
+
+    }
+
+    public boolean isShotAllowed() {
+        return shotAllowed;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(!game.shotAllowed)
-            return;
         System.out.println(e.getPoint());
-        b.setVelocity(new Vector2D(e.getPoint()).subtract(b.position).normalize().multiply(2));
-        game.shotAllowed = false;
-        System.out.println(b);
+        if(!shotAllowed)
+            return;
+        b.setVelocity(new Vector2D(e.getPoint()).subtract(b.position).normalize().multiply(16));
+        shotAllowed = false;
+        semiAllowCueMovement = false;
     }
 
     @Override
@@ -43,4 +49,13 @@ public class MouseInput implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+    public void setCueMovementAllowed(boolean b){
+        moveCueAllowed = b;
+    }
+
+    public void setShotAllowed(boolean b){
+        shotAllowed = b;
+    }
+
 }

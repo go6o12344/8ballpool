@@ -24,7 +24,7 @@ public class Segment {
             b = start.y - a * start.x;
         }
         else{
-            return v.x - start.x * (v.x > start.x ? 1 : -1);
+            return Math.abs(v.x - start.x);
         }
         return Math.abs(a * v.x - v.y + b) / Math.sqrt(a * a + 1);
     }

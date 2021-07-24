@@ -1,7 +1,5 @@
 package com.physics;
 
-import com.game.Ball;
-
 public class Particle{
     private final double m;
     private final double radius;
@@ -37,7 +35,7 @@ public class Particle{
             fld -> density of the enclosing fluid (either vacuum or air in our case)
             dc -> drag coefficient (assume particle shape is a perfect sphere)
         */
-        //ticks = 9;
+        //ticks = 120;
         if(velocity.isNull())
             return;
 
@@ -67,9 +65,9 @@ public class Particle{
 
     }
 
-    public void resolveCollision(Particle b){
+    public boolean resolveCollision(Particle b){
         if(!checkForCollision(b)) {
-            return;
+            return false;
         }
         Vector2D v1 = this.getVelocity();
         Vector2D v2 = b.getVelocity();
@@ -81,10 +79,11 @@ public class Particle{
         position.add(mtd.times(0.5));
         b.position.subtract(mtd.times(0.5));
         if(n.dot(v1.difference(v2)) > 0)
-            return;
+            return false;
         Vector2D nt = new Vector2D(-n.y, n.x);
         this.velocity = nt.times(v1.dot(nt)).add(n.times(v2.dot(n)));
         b.velocity = nt.times(v2.dot(nt)).add(n.times(v1.dot(n)));
+        return checkForCollision(b);
 
     /*
         Vector2D X = this.getPosition().sum(b.getPosition().opposite());
@@ -111,8 +110,9 @@ public class Particle{
         return position;
     }
 
-    public void setPosition(Vector2D position) {
-        this.position = position;
+    public void setPosition(double x, double y) {
+        position.x = x;
+        position.y = y;
     }
 
     public Vector2D getVelocity() {

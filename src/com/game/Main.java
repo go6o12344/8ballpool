@@ -1,13 +1,14 @@
 package com.game;
 
-import java.io.IOException;
-
 public class Main {
     public static void main(String args[]){
-        try {
-            new Game();
-        } catch (IOException e) {
-            e.printStackTrace();
+        while(true){
+            try{
+                Game.main(args);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 }
