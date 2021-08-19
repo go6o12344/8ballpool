@@ -22,32 +22,42 @@ public class MouseInput implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
+    }
+
+    double startTime, endTime, holdTime;
+    boolean flag = false;
+
+    @Override
+    public final void mousePressed(final MouseEvent e) {
+        startTime = System.nanoTime();
+        flag = true;
+    }
+
+    @Override
+    public final void mouseReleased(final MouseEvent e) {
+        if(flag) {
+            endTime = System.nanoTime();
+            flag = false;
+        }
+        holdTime = (endTime - startTime) / Math.pow(10,9);
         System.out.println(e.getPoint());
         if(!shotAllowed)
             return;
-        b.setVelocity(new Vector2D(e.getPoint()).subtract(b.position).normalize().multiply(16));
+        b.setVelocity(new Vector2D(e.getPoint()).subtract(b.position).normalize().multiply(300/Game.ticks).multiply(Math.min(0.85 + 0.85 * holdTime, 3)));
         shotAllowed = false;
         semiAllowCueMovement = false;
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        shotAllowed = true;
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        shotAllowed = false;
     }
 
     public void setCueMovementAllowed(boolean b){
