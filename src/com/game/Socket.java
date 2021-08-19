@@ -13,17 +13,17 @@ public class Socket {
     public static ArrayList<Socket> initSocks(){
         Vector2D accountForPositionDisplacement = new Vector2D(Game.ballRadius, Game.ballRadius);
         Socket upperLeft = new Socket();
-        upperLeft.inHitbox = new Circle(25, new Vector2D(42, 47).subtract(accountForPositionDisplacement));
+        upperLeft.inHitbox = new Circle(30, new Vector2D(42, 47).subtract(accountForPositionDisplacement));
         Socket midUpper = new Socket();
-        midUpper.inHitbox = new Circle(22, new Vector2D(444, 36).subtract(accountForPositionDisplacement));
+        midUpper.inHitbox = new Circle(30, new Vector2D(444, 36).subtract(accountForPositionDisplacement));
         Socket upperRight = new Socket();
-        upperRight.inHitbox = new Circle(25, new Vector2D(851,46).subtract(accountForPositionDisplacement));
+        upperRight.inHitbox = new Circle(30, new Vector2D(851,46).subtract(accountForPositionDisplacement));
         Socket lowerLeft = new Socket();
-        lowerLeft.inHitbox = new Circle(25, new Vector2D(42, 463).subtract(accountForPositionDisplacement));
+        lowerLeft.inHitbox = new Circle(30, new Vector2D(42, 463).subtract(accountForPositionDisplacement));
         Socket midLower = new Socket();
-        midLower.inHitbox = new Circle(22, new Vector2D(444, 472).subtract(accountForPositionDisplacement));
+        midLower.inHitbox = new Circle(30, new Vector2D(444, 472).subtract(accountForPositionDisplacement));
         Socket lowerRight = new Socket();
-        lowerRight.inHitbox = new Circle(25, new Vector2D(851, 462).subtract(accountForPositionDisplacement));
+        lowerRight.inHitbox = new Circle(30, new Vector2D(851, 462).subtract(accountForPositionDisplacement));
 
         ArrayList<Socket> s = new ArrayList<>();
         s.add(upperLeft);
@@ -40,7 +40,7 @@ public class Socket {
     }
 
     public boolean socketed(Ball b){
-        return b.hitbox.in(inHitbox);
+        return b.hitbox.center.difference(inHitbox.center).dot(b.hitbox.center.difference(inHitbox.center)) < 750;
     }
 
 }

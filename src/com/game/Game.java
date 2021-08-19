@@ -31,24 +31,24 @@ public class Game extends Canvas implements Runnable{
     }
 
     public void initSides(){
-        sides.add(initSide(42, 72, 58, 88));
-        sides.add(initSide(61, 88, 60, 416));
-        sides.add(initSide(68, 419, 41, 437));
-        sides.add(initSide(66, 467, 83, 450));
-        sides.add(initSide(86, 450, 413, 450));
-        sides.add(initSide(416, 450, 423, 466));
-        sides.add(initSide(466, 466, 473, 450));
-        sides.add(initSide(476, 450, 807, 450));
-        sides.add(initSide(810, 450, 826, 465));
-        sides.add(initSide(858, 437, 841, 420));
-        sides.add(initSide(841, 417, 841, 91));
-        sides.add(initSide(841, 88, 857, 72));
-        sides.add(initSide(827, 42, 810, 58));
-        sides.add(initSide(807, 58, 476, 58));
-        sides.add(initSide(473, 58, 466, 42));
-        sides.add(initSide(423, 42, 416, 57));
-        sides.add(initSide(413, 57, 85, 58));
-        sides.add(initSide(82, 58, 66, 42));
+        sides.add(initSide(16, 46, 58, 88));
+        sides.add(initSide(58, 88, 60, 419));
+        sides.add(initSide(68, 419, 15, 462));
+        sides.add(initSide(42, 490, 83, 450));
+        sides.add(initSide(83, 450, 413, 450));
+        sides.add(initSide(413, 450, 430, 490));
+        sides.add(initSide(453, 493, 473, 450));
+        sides.add(initSide(473, 450, 807, 450));
+        sides.add(initSide(807, 450, 846, 486));
+        sides.add(initSide(876, 456, 841, 420));
+        sides.add(initSide(841, 420, 841, 91));
+        sides.add(initSide(841, 91, 877, 50));
+        sides.add(initSide(846, 22, 810, 58));
+        sides.add(initSide(810, 58, 476, 58));
+        sides.add(initSide(476, 58, 451, 15));
+        sides.add(initSide(437, 15, 416, 57));
+        sides.add(initSide(416, 57, 85, 58));
+        sides.add(initSide(85, 58, 46, 22));
 
     }
 
